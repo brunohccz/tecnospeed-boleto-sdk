@@ -10,4 +10,5 @@ class Convenio extends Resource
   use TecnospeedCrud;
   
   const CREATE_ENDPOINT = '/api/v1/cedentes/contas/convenios/';
+  const UPDATE_ENDPOINT = '/api/v1/cedentes/contas/convenios/';
 }

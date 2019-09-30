@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\ClientException;
 
 trait TecnospeedRequest
 {
-  private function createPostRequest(string $uri, array $data = [])
+  protected function createPostRequest(string $uri, array $data = [])
   {
     try {
       return $this->client->createRequest('POST', $uri, ['json' => $data]);
@@ -16,7 +16,7 @@ trait TecnospeedRequest
     }
   }
 
-  private function createGetRequest(string $uri, array $query = [])
+  protected function createGetRequest(string $uri, array $query = [])
   {
     try {
       return $this->client->createRequest('GET', $uri, ['query' => $query]);
@@ -26,4 +26,13 @@ trait TecnospeedRequest
     }
   }
 
+  protected function createPutRequest(string $uri, array $data = [])
+  {
+    try {
+      return $this->client->createRequest('PUT', $uri, ['json' => $data]);
+    } catch (ClientException $e) {
+      $response = $e->getResponse();
+      return json_decode($response->getBody()->getContents());
+    }
+  }
 }

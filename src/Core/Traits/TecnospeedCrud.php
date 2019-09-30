@@ -14,4 +14,17 @@ trait TecnospeedCrud
       $data
     );
   }
+
+  /**
+   * @param int $id
+   * @param array $data
+   */
+  public function update(int $id, array $data = [])
+  {
+    return $this->boleto->request(
+      self::UPDATE_ENDPOINT . $id,
+      $data,
+      'put' /* UPDATE */
+    );
+  }
 }

@@ -10,4 +10,5 @@ class Cedente extends Resource
   use TecnospeedCrud;
   
   const CREATE_ENDPOINT = '/api/v1/cedentes/';
+  const UPDATE_ENDPOINT = '/api/v1/cedentes/';
 }

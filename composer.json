@@ -11,6 +11,9 @@
         }
     ],
     "minimum-stability": "dev",
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "require": {
         "guzzlehttp/guzzle": "~5.0"
     },

@@ -4,6 +4,7 @@ namespace Tecnospeed;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\RequestInterface;
 use Tecnospeed\Core\Boleto\Cedente;
 use Tecnospeed\Core\Boleto\Conta;
 use Tecnospeed\Core\Boleto\Convenio;
@@ -52,7 +53,7 @@ class Boleto
       'defaults' => [
         'headers' => [
           'content-type' => 'application/json',
-          'cnpj-cedente' => $config['cnpj-cedente'],
+          'cnpj-cedente' => $config['cnpj-cedente'] ?? '',
           'cnpj-sh'      => $config['cnpj-sh'],
           'token-sh'     => $config['hash-sh']
         ]
@@ -66,10 +67,12 @@ class Boleto
     $this->pdf = new PDF($this);
   }
 
-  public function request($uri, $data = [], $method = 'post')
+  public function request($uri, $data = [], $method = 'post', array $headers = [])
   {
     try {
       $request = $this->{'create'.ucfirst($method).'Request'}($uri, $data);
+      $request = $this->addHeaders($request, $headers);
+
       $response = $this->client->send($request);
 
       return json_decode($response->getBody());
@@ -79,27 +82,38 @@ class Boleto
     }
   }
 
-  public function cedente()
+  protected function addHeaders(RequestInterface $request,array $headers): RequestInterface
+  {
+    if(empty($headers)) return $request;
+
+    foreach($headers as $name => $value) {
+      $request->addHeader($name, $value);
+    }
+
+    return $request;
+  }
+
+  public function cedente(): Cedente
   {
     return $this->cedente;
   }
 
-  public function conta()
+  public function conta(): Conta
   {
     return $this->conta;
   }
 
-  public function convenio()
+  public function convenio(): Convenio
   {
     return $this->convenio;
   }
 
-  public function lote()
+  public function lote(): Lote
   {
     return $this->lote;
   }
 
-  public function pdf()
+  public function pdf(): PDF
   {
     return $this->pdf;
   }

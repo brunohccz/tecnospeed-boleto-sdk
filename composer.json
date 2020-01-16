@@ -18,5 +18,15 @@
         "psr-4": {
             "Tecnospeed\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "fzaninotto/faker": "^1.9@dev",
+        "jansenfelipe/faker-br": "1.0.x-dev"
     }
 }

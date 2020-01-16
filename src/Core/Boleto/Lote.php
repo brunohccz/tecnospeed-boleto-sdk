@@ -15,7 +15,7 @@ class Lote extends Resource
   /**
    * @param array $data
    */
-  public function consultar(array $data)
+  public function check(array $data)
   {
     return $this->boleto->request(
       self::STATUS_ENDPOINT,

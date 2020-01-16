@@ -24,7 +24,7 @@ trait TecnospeedCrud
     return $this->boleto->request(
       self::UPDATE_ENDPOINT . $id,
       $data,
-      'put' /* UPDATE */
+      'put'
     );
   }
 }

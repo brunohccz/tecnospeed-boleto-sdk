@@ -15,7 +15,7 @@ use Tecnospeed\Core\Traits\TecnospeedRequest;
 class Boleto
 {
   use TecnospeedRequest;
-  
+
   /**
    * @var Cedente
    */
@@ -25,7 +25,7 @@ class Boleto
    * @var Conta
    */
   private $conta;
-  
+
   /**
    * @var Convenio
    */
@@ -46,10 +46,21 @@ class Boleto
    */
   private $client;
 
+  /**
+   * @var string
+   */
+  protected $baseUrl;
+
+  public const ENV_HOMOGACAO = 0;
+
+  public const ENV_PRODUCAO = 1;
+
   public function __construct(array $config = [])
   {
+    $this->setEnvironment($config);
+
     $this->client = new Client([
-      'base_url' => $config['api-url'],
+      'base_url' => $this->baseUrl,
       'defaults' => [
         'headers' => [
           'content-type' => 'application/json',
@@ -65,6 +76,15 @@ class Boleto
     $this->convenio = new Convenio($this);
     $this->lote = new Lote($this);
     $this->pdf = new PDF($this);
+  }
+
+  protected function setEnvironment($config)
+  {
+    $urlHomologacao = 'http://homologacao.plugboleto.com.br/api/v1/';
+    $urlProducao = 'http://plugboleto.com.br/api/v1/';
+
+    $this->baseUrl = $config['env'] === self::ENV_HOMOGACAO ?
+      $urlHomologacao : $urlProducao;
   }
 
   public function request($uri, $data = [], $method = 'post', array $headers = [])

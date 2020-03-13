@@ -6,8 +6,8 @@ use Tecnospeed\Core\Resource;
 
 class PDF extends Resource
 {
-    const CREATE_ENDPOINT = '/api/v1/boletos/impressao/lote/';
-    const VIEW_ENDPOINT = '/api/v1/boletos/impressao/lote/';
+    const CREATE_ENDPOINT = 'boletos/impressao/lote/';
+    const VIEW_ENDPOINT = 'boletos/impressao/lote/';
 
     /**
      * PDF normal.
@@ -59,6 +59,6 @@ class PDF extends Resource
      */
     public function view(string $protocol)
     {
-        return self::VIEW_ENDPOINT . $protocol;
+      return $this->boleto->baseUrl . self::VIEW_ENDPOINT . $protocol;
     }
 }

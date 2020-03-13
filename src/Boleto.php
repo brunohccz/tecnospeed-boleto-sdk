@@ -49,7 +49,7 @@ class Boleto
   /**
    * @var string
    */
-  protected $baseUrl;
+  public $baseUrl;
 
   public const ENV_HOMOGACAO = 0;
 
